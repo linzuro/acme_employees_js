@@ -25,6 +25,9 @@ spacer('')
 function findEmployeeByName(person, arr){
   return arr.filter((element)=>{return element['name']===person}).shift(0)
 }
+//[pk] great! two notes:
+//[pk] 1. "x => {return z}" can be shortened to "x => z". no curly braces means "return".
+//[pk] 2. "find" (instead of filter) will just return the first element that meets the criteria-- saves you the ".shift(0)"
 
 spacer('findManagerFor Shep')
 //given an employee and a list of employees, return the employee who is the manager
@@ -36,6 +39,7 @@ function findManagerFor(personObj, arr){
   let manager = personObj['managerId']
   return arr.filter((element)=>{return element['id']===manager}).shift(0)
 }
+//[pk] great! see above.
 
 spacer('findCoworkersFor Larry')
 
@@ -49,6 +53,7 @@ function findCoworkersFor(personObj,arr){
 let manager = personObj['managerId']
 return arr.filter((element)=>{return element['managerId']===manager&&element['id']!==personObj['id']})
 }
+//[pk] great!
 
 spacer('');
 
@@ -64,6 +69,7 @@ function findManagementChainForEmployee(personObj,arr){
     let manager = findManagerFor(person,arr)
     if (typeof manager==='undefined'){
       break
+    //[pk] doesn't the while loop handle the breaking for you?
     }else{
       returnArr.unshift(manager)
       person=manager
@@ -72,6 +78,8 @@ function findManagementChainForEmployee(personObj,arr){
   while(typeof person !=='undefined')
   return returnArr
 }
+//[pk] good!
+
 
 spacer('findManagementChain for shep Jr.')
 console.log(findManagementChainForEmployee(findEmployeeByName('shep Jr.', employees), employees));/*
@@ -91,6 +99,8 @@ function generateManagementTree(arr){
   arr[0]['reports']=findReports(arr[0],arr)
     return arr[0]
 }
+//[pk] good but cheating by IDing the manager as "arr[0]". what if you weren't guaranteed that the array's 0th element is the manager?
+//[pk] you can find manager by lack of managerId
 
 function findReports(personObj,arr){
       let id = personObj['id']
@@ -101,6 +111,7 @@ function findReports(personObj,arr){
         return elem
       })
     }
+//[pk] funky use of map. but it works!
 
 /*
 {
@@ -172,6 +183,7 @@ function displayManagementTree(obj){
     i=1
     
 }
+//[pk] very good!
 displayManagementTree(generateManagementTree(employees));/*
 moe
 -larry
